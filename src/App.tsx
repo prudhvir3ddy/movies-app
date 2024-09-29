@@ -1,9 +1,9 @@
 import './App.css'
 import axios from 'axios';
-import {useEffect, useState} from "react";
+import { useEffect, useState, CSSProperties } from 'react';
 
 function App() {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState<any[]>([]);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
@@ -15,8 +15,7 @@ function App() {
         })
             .then(response => {
                 const newMovies = response.data.results;
-                movies.push(...newMovies);
-                setMovies([...movies]);
+                setMovies(prevMovies => [...prevMovies, ...newMovies]);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -41,15 +40,15 @@ function App() {
     )
 }
 
-const containerStyle = {
+const containerStyle: CSSProperties = {
     display: 'flex',
     flexWrap: 'wrap',
 };
 
-const itemStyle = {
-    flex: '1 1 30%',
+const itemStyle: CSSProperties = {
+    flex: '1 1 50%',
     boxSizing: 'border-box',
     padding: '10px',
 };
 
-export default App
+export default App;
